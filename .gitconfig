@@ -1,0 +1,77 @@
+[push]
+	default = current
+[grep]
+	lineNumber = true
+[color]
+	ui = true
+[color "branch"]
+	upstream = red bold 
+[color "diff"]
+	#meta = bold blue 
+	meta = black white 
+	func = white ul
+	frag = black cyan
+[color "status"]
+	branch = black green
+	untracked = black red
+	nobranch = black red
+[alias]
+# 	simple
+#	st = status
+	st = status -sb
+	co = checkout
+	ci = commit
+	dss = diff --stat
+	ds = diff --shortstat
+
+#	one command
+	tryfetch = fetch --dry-run
+	trypush = push --dry-run
+
+	branches = branch -lvv
+	bmerged = branch -lvv --merged
+	bnomerged = branch -lvv --no-merged
+
+	#unmerged = ls-files --unmerged
+	unmerged = !git status -s | grep '^UU' | sed 's/UU //g'
+	untracked = ls-files --others
+	ignored = ls-files --ignored --exclude-standard --others
+    deleted = log --summary --pretty='%+C(yellow)%H%C(reset)' --diff-filter=D
+
+#	compound
+	wipe = !git reset --hard head && git clean -df
+	wipe-all = !git reset --hard head && git clean -dfx && git clean -dfX
+	#pack = !git archive -vvv -o $(basename $(pwd)).zip
+	pack = !sh -c 'git archive -vvv -o $1-$(git rev-parse --short $0).zip $0'
+#	pack = !sh -c 'echo $0'
+	example = !sh -c 'ls $2 $1' -
+
+#	log
+    l = log --graph --oneline --decorate
+    ls = log --graph --format=short --decorate
+    lm = log --graph --format=medium --decorate
+	lg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
+	lg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
+    lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d'
+    lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
+    lggg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d %+b'
+    lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
+
+	me = !git today --author="$(git config user.name)"
+    today = !git lg --since='0:0 am'
+	yesterday = !git lg --since='yesterday'
+	week = !git lg --since='7 day'
+    
+	branch-only = !git log $(git rev-list $1..master | tail -1)^..$1
+	
+	diff-src = diff -- *.m *.h
+	add-src = add -- *.m *.h
+	wdiff = diff --color-words
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff 
+[core]
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+	#pager = less -r
