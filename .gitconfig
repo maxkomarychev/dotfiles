@@ -23,6 +23,7 @@
 	ci = commit
 	dss = diff --stat
 	ds = diff --shortstat
+    dc = diff --cached
 
 #	one command
 	tryfetch = fetch --dry-run
@@ -45,6 +46,9 @@
 	pack = !sh -c 'git archive -vvv -o $1-$(git rev-parse --short $0).zip $0'
 #	pack = !sh -c 'echo $0'
 	example = !sh -c 'ls $2 $1' -
+#   OS X - specific
+    cphead = !git rev-parse head | pbcopy
+    cphd = !git rev-parse --short head | pbcopy
 
 #	log
     l = log --graph --oneline --decorate
@@ -52,10 +56,10 @@
     lm = log --graph --format=medium --decorate
 	lg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
 	lg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
-    lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d'
-    lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
-    lggg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d %+b'
-    lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
+    lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d'
+    lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
+    lggg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %+b'
+    lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
 
 	me = !git today --author="$(git config user.name)"
     today = !git lg --since='0:0 am'
