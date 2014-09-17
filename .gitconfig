@@ -54,15 +54,15 @@
     	deleted = log --summary --pretty='%+C(yellow)%H%C(reset)' --diff-filter=D
 
 #	utils
-	wipe = !git reset --hard head && git clean -df
-	wipe-all = !git reset --hard head && git clean -dfx && git clean -dfX
+	wipe = !git reset --hard HEAD && git clean -df
+	wipe-all = !git reset --hard HEAD && git clean -dfx && git clean -dfX
 	# $0 - commitish, $1 - archive name prefix
 	pack = !sh -c 'git archive -vvv -o $1-$(git rev-parse --short $0).zip $0'
 	branch-only = !git log $(git rev-list $1..master | tail -1)^..$1
 
 #   OS X - specific
-	cphead = !git rev-parse head | pbcopy
-	cphd = !git rev-parse --short head | pbcopy
+	cphead = !git rev-parse HEAD | pbcopy
+	cphd = !git rev-parse --short HEAD | pbcopy
 
 [diff]
 	tool = vimdiff	
