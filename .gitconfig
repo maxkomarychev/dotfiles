@@ -59,6 +59,7 @@
 	# $0 - commitish, $1 - archive name prefix
 	pack = !sh -c 'git archive -vvv -o $1-$(git rev-parse --short $0).zip $0'
 	branch-only = !git log $(git rev-list $1..master | tail -1)^..$1
+	head = rev-parse HEAD
 
 #   OS X - specific
 	cphead = !git rev-parse HEAD | pbcopy
