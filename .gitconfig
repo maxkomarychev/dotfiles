@@ -36,12 +36,12 @@
 	l = log --graph --oneline --decorate
 	ls = log --graph --format=short --decorate
 	lm = log --graph --format=medium --decorate
-	lg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
-	lg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
-	lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d'
-	lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
-	lggg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %+b'
-	lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %cn %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
+	lg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
+	lg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
+	lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d'
+	lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
+	lggg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %+b'
+	lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
 
 	today = !git lg --since='0:0 am'
 	yesterday = !git lg --since='yesterday'
