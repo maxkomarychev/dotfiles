@@ -50,7 +50,7 @@
 #	file status
 	unmerged = !git status -s | grep '^UU' | sed 's/UU //g'
 	untracked = ls-files --others
-	ignored = ls-files --ignored --exclude-standard --others
+	ignored = ls-files --ignored --exclude-standard
     	deleted = log --summary --pretty='%+C(yellow)%H%C(reset)' --diff-filter=D
 
 #	utils
@@ -74,5 +74,5 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
-	pager = more -R
+	pager = more -R --ignore-case
 
