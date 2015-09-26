@@ -44,14 +44,16 @@
 	lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
 
 	today = !git lg --since='0:0 am'
+	today-all = !git lg --all --since='0:0 am'
 	yesterday = !git lg --since='yesterday'
 	week = !git lg --since='7 day'
 
 #	file status
 	unmerged = !git status -s | grep '^UU' | sed 's/UU //g'
 	untracked = ls-files --others
-	ignored = ls-files --ignored --exclude-standard
-    	deleted = log --summary --pretty='%+C(yellow)%H%C(reset)' --diff-filter=D
+    ignored = ls-files --ignored --exclude-standard
+    wipe-ignored = !git rm -r --cached -q . && git add .
+    deleted = log --summary --pretty='%+C(yellow)%H%C(reset)' --diff-filter=D
 
 #	utils
 	wipe = !git reset --hard HEAD && git clean -df
@@ -59,6 +61,9 @@
 	# $0 - commitish, $1 - archive name prefix
 	pack = !sh -c 'git archive -vvv -o $1-$(git rev-parse --short $0).zip $0'
 	branch-only = !git log $(git rev-list $1..master | tail -1)^..$1
+
+    nomerged-branches = !git branch --no-merged | xargs -n 1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
+
 	head = rev-parse HEAD
 
 #   OS X - specific
