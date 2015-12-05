@@ -5,6 +5,16 @@ syntax enable
 set ai
 filetype indent plugin on
 color monokai
+set colorcolumn=80
+set tw=72
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set ignorecase
+set incsearch
+set hlsearch
+hi Search ctermfg=235 ctermbg=186 cterm=NONE guifg=#272822 guibg=#e6db74 gui=NONE
 
 "Use TAB to complete when typing words, else inserts TABs as usual.
 "Uses dictionary and source files to find matching words to complete.
