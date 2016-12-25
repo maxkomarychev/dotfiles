@@ -17,6 +17,5 @@
 xcuserdata
 
 # Cocoapods stuff
-Podfile.lock
 Pods
 
