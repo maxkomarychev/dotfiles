@@ -1,5 +1,7 @@
 [push]
-	default = current
+#	default = current
+	default = upstream
+
 
 [grep]
 	lineNumber = true
@@ -25,18 +27,24 @@
 	st = status -sb
 	co = checkout
 	ci = commit
+	ici = commit --interactive
+	df = diff
 	dss = diff --stat
 	ds = diff --shortstat
-        dc = diff --cached
+    dc = diff --cached
 	dw = diff --color-words
 
-	branches = branch -lvv
+    #branches = branch -lvv
+    branches = !git branch | xargs -n1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
+    
+    #| xargs -n1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
+
 
 #	log
 	l = log --graph --oneline --decorate
 	ls = log --graph --format=short --decorate
 	lm = log --graph --format=medium --decorate
-	lg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
+	lg = log --graph --pretty='%C(black white)%h%C(reset) %C(white)(%p) %C(yellow)%s%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
 	lg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
 	lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d'
 	lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
