@@ -58,6 +58,8 @@
 
 #	file status
 	unmerged = !git status -s | grep '^UU' | sed 's/UU //g'
+	conflicts = !git status -s | grep --color=always -E '^[A-Z]{2}'
+	conflicts-paths = !git status -s | grep -E '^[A-Z]{2}' | sed -E 's/^[A-Z]{2} //g'
 	untracked = ls-files --others
     ignored = ls-files --ignored --exclude-standard
     wipe-ignored = !git rm -r --cached -q . && git add .
