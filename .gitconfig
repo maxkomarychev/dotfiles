@@ -1,6 +1,5 @@
 [push]
-#	default = current
-	default = upstream
+	default = current
 
 
 [grep]
@@ -33,6 +32,8 @@
 	ds = diff --shortstat
     dc = diff --cached
 	dw = diff --color-words
+
+    body = show -s --format=%b
 
     #branches = branch -lvv
     branches = !git branch | xargs -n1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
