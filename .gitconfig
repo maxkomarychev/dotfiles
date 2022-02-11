@@ -99,5 +99,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
-	pager = more -R --ignore-case
+    pager = more -R --ignore-case
 
+[pull]
+	rebase = false
