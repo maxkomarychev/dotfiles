@@ -29,6 +29,10 @@
 	ici = commit --interactive
 	df = diff
     pu = push -u
+    smash = !git add . && git commit -am wip && git push -u -o merge_request.create
+    pushcreate = push -u -o merge_request.create
+    pushmerge = push -o merge_request.merge_when_pipeline_succeeds	
+    pushdraft = push -u -o merge_request.create -o merge_request.draft
 	dss = diff --stat
 	ds = diff --shortstat
     dc = diff --cached
@@ -46,8 +50,11 @@
 	l = log --graph --oneline --decorate
 	ls = log --graph --format=short --decorate
 	lm = log --graph --format=medium --decorate
-    lg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%<(20)%an %C(yellow)%<(50)%s%C(reset)'
-    lgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(white dim)%p%C(reset) %C(red)%>(20)%an %C(cyan dim)%<(15)%cr%C(reset) %C(yellow)%<(50)%s%C(reset) %C(reset)%C(auto)%C(dim)%d'
+    lg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%<(25)%an %C(yellow)%<(50)%s%C(reset)'
+    oldlgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(white dim)%p%C(reset) %C(red)%>(25)%an %C(cyan dim)%<(15)%cr%C(reset) %C(yellow)%<(50)%s%C(reset) %C(reset)%C(auto)%C(dim)%d'
+    lgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(yellow)%<(80,trunc)%s%+C(red)%an %C(cyan)%ar %C(cyan dim)(%ad)%+D'
+    newlgg2 = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%an %C(cyan)%ar %C(cyan dim)(%ad)%+D%n%C(yellow)%<(110,trunc)%s'
+    lgg2 = log --graph --pretty='%C(white reverse)%h %C(reset)%D %C(red)%an %C(reset) %C(cyan)%ar %C(dim)(%ad) %C(reset)%C(yellow)%s'
     # lgg2 = log --graph --format=fuller
     #lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(white dim)%p%C(reset) %C(red)%<(20)%an%C(reset) %C(yellow)%<(70)%s%C(reset) %C(cyan)%cr %C(reset)%C(auto)%d'
     #lg = log --graph --pretty='%C(black white)%h%C(reset) %C(white)(%p) %C(yellow)%s%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
@@ -99,7 +106,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
-    pager = more -R --ignore-case
+    pager = more -R --ignore-case -F
 
 [pull]
 	rebase = false
