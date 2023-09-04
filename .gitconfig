@@ -84,6 +84,8 @@
 	# $0 - commitish, $1 - archive name prefix
 	pack = !sh -c 'git archive -vvv -o $1-$(git rev-parse --short $0).zip $0'
 	branch-only = !git log $(git rev-list $1..master | tail -1)^..$1
+    clean-branches = !sh -c 'git branch | grep -v $0 | xargs git branch -D'
+
 
     nomerged-branches = !git branch --no-merged | xargs -n 1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
 
