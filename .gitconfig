@@ -30,9 +30,15 @@
 	df = diff
     pu = push -u
     smash = !git add . && git commit -am wip && git push -u -o merge_request.create
+
     pushcreate = push -u -o merge_request.create
     pushmerge = push -o merge_request.merge_when_pipeline_succeeds	
     pushdraft = push -u -o merge_request.create -o merge_request.draft
+
+    pushc = push -u -o merge_request.create
+    pushm = push -o merge_request.merge_when_pipeline_succeeds	
+    pushd = push -u -o merge_request.create -o merge_request.draft
+
 	dss = diff --stat
 	ds = diff --shortstat
     dc = diff --cached
@@ -42,19 +48,29 @@
 
     #branches = branch -lvv
     branches = !git branch | xargs -n1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
+    #purge-branch = !sh -c 'echo "cleanup $0"'
+    purge-branch = !sh -c 'git branch -D $0 && git push -d origin $0'
     
     #| xargs -n1 -I{} git show -s --format='%C(cyan)%ar %C(blue bold)(%ad) %C(auto)%d' {}^!
 
 
 #	log
-	l = log --graph --oneline --decorate
+    #l = log --graph --oneline --decorate
+    lg = log --graph --oneline --pretty='%C(yellow bold reverse) %h %C(reset) %C(reset cyan)%ar%C(reset red) %an %<|(-1,trunc)%C(reset bold white)%s%C(reset)'
+    lgg = log --graph --oneline --pretty='%C(yellow bold reverse) %h %C(auto)% D%n     %C(reset red) %an%C(reset cyan) %ar %C(dim)(%ad)%n      %C(reset bold white)%s%C(reset)'
+    lggg = log --graph --oneline --pretty='%C(yellow bold reverse) %h %C(auto)% D%n     %C(reset red) %an%C(reset cyan) %ar %C(dim)(%ad)%C(reset)%n      %C(reset bold white)%s%C(reset)%w(80,6,6)%+b%C(reset)'
+    #ll = log --graph --oneline --pretty='%C(brightyellow)%h %<|(-1,trunc)%C(bold white)%s%+D%n%C(red)%an %C(green)%ar %C(green dim)(%ad) %C(reset)'
+    # ll = log --graph --oneline --pretty='%C(yellow)%h %C(red)%an%C(auto)%d%n%C(brightgreen)%ar %C(green)(%ad)%n%C(bold white)%s%C(reset)'
+    # ll = log --graph --oneline --pretty='%C(yellow)%h%C(auto)%d%n%C(red)%an %C(brightgreen)%ar %C(green)(%ad)%n%C(brightcyan)%s%C(reset)'
+    #lll = log --graph --oneline --pretty='%C(yellow)%h%C(auto)%d%n%C(red)%an %C(brightgreen)%ar %C(green)(%ad)%n%C(brightcyan)%s%C(reset)%w(0,0,4)%+b'
 	ls = log --graph --format=short --decorate
 	lm = log --graph --format=medium --decorate
-    lg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%<(25)%an %C(yellow)%<(50)%s%C(reset)'
-    oldlgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(white dim)%p%C(reset) %C(red)%>(25)%an %C(cyan dim)%<(15)%cr%C(reset) %C(yellow)%<(50)%s%C(reset) %C(reset)%C(auto)%C(dim)%d'
-    lgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(yellow)%<(80,trunc)%s%+C(red)%an %C(cyan)%ar %C(cyan dim)(%ad)%+D'
-    newlgg2 = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%an %C(cyan)%ar %C(cyan dim)(%ad)%+D%n%C(yellow)%<(110,trunc)%s'
-    lgg2 = log --graph --pretty='%C(white reverse)%h %C(reset)%D %C(red)%an %C(reset) %C(cyan)%ar %C(dim)(%ad) %C(reset)%C(yellow)%s'
+    #lg = log --graph --pretty='%C(white)%h%C(reset) %C(red)%an %>|(-1)%C(cyan)%D%n%C(yellow)%s'
+    #lg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%<(25)%an %C(yellow)%<(50)%s%C(reset)'
+    #oldlgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(white dim)%p%C(reset) %C(red)%>(25)%an %C(cyan dim)%<(15)%cr%C(reset) %C(yellow)%<(50)%s%C(reset) %C(reset)%C(auto)%C(dim)%d'
+    #lgg = log --graph --pretty='%C(white reverse)%h%C(reset) %C(yellow)%<(80,trunc)%s%+C(red)%an %C(cyan)%ar %C(cyan dim)(%ad)%+D'
+    #newlgg2 = log --graph --pretty='%C(white reverse)%h%C(reset) %C(red)%an %C(cyan)%ar %C(cyan dim)(%ad)%+D%n%C(yellow)%<(110,trunc)%s'
+    #lgg2 = log --graph --pretty='%C(white reverse)%h %C(reset)%D %C(red)%an %C(reset) %C(cyan)%ar %C(dim)(%ad) %C(reset)%C(yellow)%s'
     # lgg2 = log --graph --format=fuller
     #lgg = log --graph --pretty='%C(black white)%h%C(reset) %C(white dim)%p%C(reset) %C(red)%<(20)%an%C(reset) %C(yellow)%<(70)%s%C(reset) %C(cyan)%cr %C(reset)%C(auto)%d'
     #lg = log --graph --pretty='%C(black white)%h%C(reset) %C(white)(%p) %C(yellow)%s%C(reset) %C(red)- %an,%C(reset) %C(cyan)%ar %C(reset)%C(auto)%d'
@@ -63,6 +79,8 @@
 	#lgg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d%n%C(yellow)%s%C(reset)'
 	#lggg = log --graph --pretty='%C(black white)%h%C(reset) %C(yellow)%s%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %+b'
 	#lggg2 = log --graph --pretty='%C(black white)%h%C(reset) %C(red)- %an %C(magenta)<%ae>, %C(reset) %C(cyan)%ar %C(blue bold)(%ad) %C(reset)%C(auto)%d %n%C(yellow)%s %C(white)%+b'
+    #
+    mtag = !sh -c 'git tag -m $0 $0 ${@:1}'
 
 	today = !git lg --since='0:0 am'
 	today-all = !git lg --all --since='0:0 am'
@@ -98,6 +116,8 @@
 	cphead = !git rev-parse HEAD | pbcopy
 	cphd = !git rev-parse --short HEAD | pbcopy
 
+    pushuat = push -o ci.variable="DEPLOY_K_UAT='true'"	
+
 
 [diff]
 	tool = vimdiff	
@@ -110,5 +130,11 @@
 	attributesfile = ~/.gitattributes
     pager = more -R --ignore-case -F
 
+[user]
+	name = Max Komarychev
+	email = max@khealth.com
+[credential]
+	helper = osxkeychain
+	useHttpPath = true
 [pull]
 	rebase = false
